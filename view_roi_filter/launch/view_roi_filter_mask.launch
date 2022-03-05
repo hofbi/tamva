@@ -1,0 +1,16 @@
+<launch>
+    <arg name='camera_view' default='front'/>
+    <arg name='image_topic' default='/carla/ego_vehicle/$(arg camera_view)/image'/>
+    <arg name='status_topic' default='/carla/ego_vehicle/vehicle_status'/>
+    <arg name='center_offset' default='0'/>
+    <arg name='block_based_mode' default='false'/>
+
+    <group ns="filter/$(arg camera_view)">
+        <node name="view_roi_filter" pkg="view_roi_filter" type="view_roi_filter_node" output="screen">
+            <param name="image_topic" value="$(arg image_topic)"/>
+            <param name="status_topic" value="$(arg status_topic)"/>
+            <param name="center_offset" value="$(arg center_offset)"/>
+            <param name="block_based_mode" value="$(arg block_based_mode)"/>
+        </node>
+    </group>
+</launch>

@@ -1,0 +1,8 @@
+-r requirements-dev.txt
+
+numpy
+pandas
+sklearn
+av
+siti_tools
+jupyter

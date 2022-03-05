@@ -1,0 +1,20 @@
+<package format="2">
+    <name>view_roi_filter</name>
+    <version>0.0.0</version>
+    <description>The view_roi_filter package</description>
+    <maintainer email="name.surname@tum.de">Markus Hofbauer</maintainer>
+    <author email="name.surname@tum.de">Markus Hofbauer</author>
+    <license>MIT</license>
+    <url type="website">https://github.com/hofbi/tamva</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <build_depend>roscpp</build_depend>
+    <build_depend>sensor_msgs</build_depend>
+    <build_depend>carla_msgs</build_depend>
+    <build_depend>cv_bridge</build_depend>
+    <build_depend>roslaunch</build_depend>
+    <build_depend>rosbag</build_depend>
+    <exec_depend>rosbag</exec_depend>
+    <exec_depend>image_view</exec_depend>
+</package>

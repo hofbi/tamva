@@ -1,0 +1,18 @@
+<launch>
+    <arg name='camera_view' default='front'/>
+    <arg name='role_name' default='ego_vehicle'/>
+
+    <arg name='image_topic' default='/carla/$(arg role_name)/$(arg camera_view)/image'/>
+    <arg name='prio_topic' default='/carla/$(arg role_name)/$(arg camera_view)/prioritization'/>
+    <arg name='frame_stats_topic' default='/server/$(arg camera_view)/rtsp_server/camera/stats'/>
+    <arg name='rate_control_topic' default='/server/$(arg camera_view)/rtsp_server'/>
+
+    <group ns="mda/$(arg camera_view)">
+        <node name="view_mda" pkg="view_mda" type="view_mda_node" output="screen">
+            <param name="image_topic" value="$(arg image_topic)"/>
+            <param name="prio_topic" value="$(arg prio_topic)"/>
+            <param name="frame_stats_topic" value="$(arg frame_stats_topic)"/>
+            <param name="rate_control_topic" value="$(arg rate_control_topic)"/>
+        </node>
+    </group>
+</launch>

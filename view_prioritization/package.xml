@@ -1,0 +1,22 @@
+<package format="2">
+    <name>view_prioritization</name>
+    <version>0.0.0</version>
+    <description>The view prioritization package</description>
+    <maintainer email="name.surname@tum.de">Markus Hofbauer</maintainer>
+    <author email="name.surname@tum.de">Markus Hofbauer</author>
+    <license>MIT</license>
+    <url type="website">https://github.com/hofbi/tamva</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    <depend>carla_msgs</depend>
+    <depend>view_adaptation_msgs</depend>
+    <build_depend>roslaunch</build_depend>
+
+    <exec_depend>geometry_msgs</exec_depend>
+    <exec_depend>rospy</exec_depend>
+
+    <test_depend>rosunit</test_depend>
+
+    <export>
+    </export>
+</package>

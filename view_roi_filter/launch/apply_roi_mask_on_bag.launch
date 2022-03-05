@@ -1,0 +1,28 @@
+<launch>
+    <arg name='bag_path'/>
+
+    <node pkg="rosbag" type="play" name="play" required="true" args="-r 0.3 -d 1 $(arg bag_path)"/>
+    <include file="$(find view_roi_filter)/launch/view_roi_filter_mask.launch">
+        <arg name="camera_view" value="front"/>
+    </include>
+    <include file="$(find view_roi_filter)/launch/view_roi_filter_mask.launch">
+        <arg name="camera_view" value="front_left"/>
+        <arg name="center_offset" value="-0.5"/>
+    </include>
+    <include file="$(find view_roi_filter)/launch/view_roi_filter_mask.launch">
+        <arg name="camera_view" value="front_right"/>
+        <arg name="center_offset" value="0.5"/>
+    </include>
+    <include file="$(find view_roi_filter)/launch/view_roi_filter_mask.launch">
+        <arg name="camera_view" value="rear"/>
+    </include>
+    <include file="$(find view_roi_filter)/launch/view_roi_filter_mask.launch">
+        <arg name="camera_view" value="rear_left"/>
+        <arg name="center_offset" value="-0.5"/>
+    </include>
+    <include file="$(find view_roi_filter)/launch/view_roi_filter_mask.launch">
+        <arg name="camera_view" value="rear_right"/>
+        <arg name="center_offset" value="0.5"/>
+    </include>
+    <node pkg="rosbag" type="record" name="record" required="true" args="-o roi.bag -b 1024 -e \/filter\/.*"/>
+</launch>

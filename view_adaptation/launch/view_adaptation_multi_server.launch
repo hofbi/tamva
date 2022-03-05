@@ -1,0 +1,104 @@
+<launch>
+    <arg name="bag_input" default="false"/>
+    <arg name="role_name" default="ego_vehicle"/>
+    <arg name="sensor_definition_file" default="$(find telecarla_manual_control)/config/multi_sensors.json"/>
+    <arg name="town" default="Town01"/>
+
+    <!--  Carla ROS bridge  -->
+    <include unless="$(arg bag_input)" file="$(find telecarla_manual_control)/launch/carla_ros_bridge_with_ego_vehicle.launch">
+        <arg name="sensor_definition_file" value="$(arg sensor_definition_file)"/>
+        <arg name='role_name' value='$(arg role_name)'/>
+        <arg name="town" value="$(arg town)"/>
+    </include>
+
+    <!-- View Prioritization -->
+    <include file="$(find view_prioritization)/launch/view_prioritization.launch">
+        <arg name="sensor_definition_file" value="$(arg sensor_definition_file)"/>
+        <arg name='role_name' value='$(arg role_name)'/>
+    </include>
+
+    <!-- MDA -->
+    <include file="$(find view_mda)/launch/view_mda.launch">
+        <arg name='camera_view' value='front'/>
+        <arg name='role_name' value='$(arg role_name)'/>
+    </include>
+    <include file="$(find view_mda)/launch/view_mda.launch">
+        <arg name='camera_view' value='front_left'/>
+        <arg name='role_name' value='$(arg role_name)'/>
+    </include>
+    <include file="$(find view_mda)/launch/view_mda.launch">
+        <arg name='camera_view' value='front_right'/>
+        <arg name='role_name' value='$(arg role_name)'/>
+    </include>
+    <include file="$(find view_mda)/launch/view_mda.launch">
+        <arg name='camera_view' value='rear'/>
+        <arg name='role_name' value='$(arg role_name)'/>
+    </include>
+    <include file="$(find view_mda)/launch/view_mda.launch">
+        <arg name='camera_view' value='rear_left'/>
+        <arg name='role_name' value='$(arg role_name)'/>
+    </include>
+    <include file="$(find view_mda)/launch/view_mda.launch">
+        <arg name='camera_view' value='rear_right'/>
+        <arg name='role_name' value='$(arg role_name)'/>
+    </include>
+
+    <!-- ROI Filter -->
+    <include file="$(find view_roi_filter)/launch/view_roi_filter_mask.launch">
+        <arg name="image_topic" value="/carla/$(arg role_name)/rear/image"/>
+        <arg name="camera_view" value="rear"/>
+    </include>
+    <include file="$(find view_roi_filter)/launch/view_roi_filter_mask.launch">
+        <arg name="image_topic" value="/carla/$(arg role_name)/rear_left/image"/>
+        <arg name="camera_view" value="rear_left"/>
+        <arg name="center_offset" value="-0.5"/>
+    </include>
+    <include file="$(find view_roi_filter)/launch/view_roi_filter_mask.launch">
+        <arg name="image_topic" value="/carla/$(arg role_name)/rear_right/image"/>
+        <arg name="camera_view" value="rear_right"/>
+        <arg name="center_offset" value="0.5"/>
+    </include>
+
+    <!-- RPC Server -->
+    <include file="$(find telecarla_rpc)/launch/telecarla_rpc_server.launch">
+        <arg name='role_name' value='$(arg role_name)'/>
+    </include>
+
+    <!--  GStreamer Server  -->
+    <include file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
+        <arg name='server_id' value='front'/>
+        <arg name='mount' value='front'/>
+        <arg name='port' value='8551'/>
+        <arg name='in_topic' value='/carla/$(arg role_name)/front/image'/>
+    </include>
+    <include file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
+        <arg name='server_id' value='front_left'/>
+        <arg name='mount' value='front_left'/>
+        <arg name='port' value='8552'/>
+        <arg name='in_topic' value='/carla/$(arg role_name)/front_left/image'/>
+    </include>
+    <include file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
+        <arg name='server_id' value='front_right'/>
+        <arg name='mount' value='front_right'/>
+        <arg name='port' value='8553'/>
+        <arg name='in_topic' value='/carla/$(arg role_name)/front_right/image'/>
+    </include>
+    <include file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
+        <arg name='server_id' value='rear'/>
+        <arg name='mount' value='rear'/>
+        <arg name='port' value='8554'/>
+        <arg name='in_topic' value='/filter/rear/view_roi_filter/carla/$(arg role_name)/rear/image'/>
+    </include>
+    <include file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
+        <arg name='server_id' value='rear_left'/>
+        <arg name='mount' value='rear_left'/>
+        <arg name='port' value='8555'/>
+        <arg name='in_topic' value='/filter/rear_left/view_roi_filter/carla/$(arg role_name)/rear_left/image'/>
+    </include>
+    <include file="$(find gstreaming)/launch/rtsp/rtsp_server.launch">
+        <arg name='server_id' value='rear_right'/>
+        <arg name='mount' value='rear_right'/>
+        <arg name='port' value='8556'/>
+        <arg name='in_topic' value='/filter/rear_right/view_roi_filter/carla/$(arg role_name)/rear_right/image'/>
+    </include>
+</launch>

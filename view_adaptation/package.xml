@@ -1,0 +1,26 @@
+<package format="2">
+    <name>view_adaptation</name>
+    <version>0.0.0</version>
+    <description>The view adaptation package</description>
+    <maintainer email="name.surname@tum.de">Markus Hofbauer</maintainer>
+    <author email="name.surname@tum.de">Markus Hofbauer</author>
+    <license>MIT</license>
+    <url type="website">https://github.com/hofbi/tamva</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    <build_depend>roslaunch</build_depend>
+
+    <exec_depend>telecarla_manual_control</exec_depend>
+    <exec_depend>telecarla_gui</exec_depend>
+    <exec_depend>telecarla_rpc</exec_depend>
+    <exec_depend>gstreaming</exec_depend>
+    <exec_depend>view_roi_filter</exec_depend>
+    <exec_depend>view_mda</exec_depend>
+    <exec_depend>view_prioritization</exec_depend>
+    <exec_depend>carla_ros_bridge</exec_depend>
+    <exec_depend>carla_spawn_objects</exec_depend>
+
+
+    <export>
+    </export>
+</package>

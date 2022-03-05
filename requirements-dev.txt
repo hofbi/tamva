@@ -1,0 +1,4 @@
+tikzplotlib
+pyfakefs
+matplotlib
+pre-commit

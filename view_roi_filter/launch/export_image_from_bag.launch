@@ -1,0 +1,9 @@
+<launch>
+    <arg name='bag_name' default = "output.bag"/>
+    <arg name='extract_topic' default = "/filter/front/view_roi_filter/carla/ego_vehicle/camera/front/image"/>
+
+    <node pkg="rosbag" type="play" name="rosbag" required="true" args="-r 0.4 -d 1 $(find view_roi_filter)/bagfiles/$(arg bag_name)"/>
+    <node name="extract" pkg="image_view" type="extract_images" respawn="false" required="true" output="screen">
+        <remap from="image" to="$(arg extract_topic)"/>
+    </node>
+</launch>

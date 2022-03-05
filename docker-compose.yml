@@ -1,0 +1,13 @@
+version: '3'
+services:
+  view_adaptation:
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile
+    image: view_adaptation
+    network_mode: host
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ~/scenario_output:/home/catkin_ws/src/telecarla/telecarla_scenario_runner/output:rw
+      - ~/Videos:/home/catkin_ws/src/telecarla/videos:rw
+    command: bash

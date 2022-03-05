@@ -1,0 +1,9 @@
+<launch>
+    <arg name='role_name' default='ego_vehicle'/>
+    <arg name="sensor_definition_file" default="$(find telecarla_manual_control)/config/multi_sensors.json"/>
+
+    <node name="view_prioritization" pkg="view_prioritization" type="view_prioritization_node.py" respawn="true" output="screen">
+        <param name="role_name" value="$(arg role_name)"/>
+        <param name="sensor_definition_file" value="$(arg sensor_definition_file)"/>
+    </node>
+</launch>

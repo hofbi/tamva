@@ -1,0 +1,22 @@
+<package format="2">
+    <name>view_mda</name>
+    <version>0.0.0</version>
+    <description>The view multi dimensional adaptation package</description>
+    <maintainer email="name.surname@tum.de">Markus Hofbauer</maintainer>
+    <author email="name.surname@tum.de">Markus Hofbauer</author>
+    <license>MIT</license>
+    <url type="website">https://github.com/hofbi/tamva</url>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    <depend>dynamic_reconfigure</depend>
+    <build_depend>roscpp</build_depend>
+    <build_depend>sensor_msgs</build_depend>
+    <build_depend>telecarla_msgs</build_depend>
+    <build_depend>view_adaptation_msgs</build_depend>
+    <build_depend>cv_bridge</build_depend>
+    <build_depend>roslaunch</build_depend>
+    <build_depend>gstreaming</build_depend>
+
+    <export>
+    </export>
+</package>

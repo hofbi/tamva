@@ -1,0 +1,49 @@
+<launch>
+    <arg name="bag_input" default="false"/>
+    <arg name="role_name" default="ego_vehicle"/>
+    <arg name="sensor_definition_file" default="$(find telecarla_manual_control)/config/multi_sensors.json"/>
+    <arg name="town" default="Town01"/>
+
+    <!--  Carla ROS bridge  -->
+    <include unless="$(arg bag_input)" file="$(find telecarla_manual_control)/launch/carla_ros_bridge_with_ego_vehicle.launch">
+        <arg name="sensor_definition_file" value="$(arg sensor_definition_file)"/>
+        <arg name="role_name" value="$(arg role_name)"/>
+        <arg name="town" value="$(arg town)"/>
+    </include>
+
+    <!-- View Prioritization -->
+    <include file="$(find view_prioritization)/launch/view_prioritization.launch">
+        <arg name="sensor_definition_file" value="$(arg sensor_definition_file)"/>
+        <arg name='role_name' value='$(arg role_name)'/>
+    </include>
+
+    <!-- ROI Filter -->
+    <include file="$(find view_roi_filter)/launch/view_roi_filter_mask.launch">
+        <arg name="image_topic" value="/carla/$(arg role_name)/rear/image"/>
+        <arg name="camera_view" value="rear"/>
+    </include>
+    <include file="$(find view_roi_filter)/launch/view_roi_filter_mask.launch">
+        <arg name="image_topic" value="/carla/$(arg role_name)/rear_left/image"/>
+        <arg name="camera_view" value="rear_left"/>
+        <arg name="center_offset" value="-0.5"/>
+    </include>
+    <include file="$(find view_roi_filter)/launch/view_roi_filter_mask.launch">
+        <arg name="image_topic" value="/carla/$(arg role_name)/rear_right/image"/>
+        <arg name="camera_view" value="rear_right"/>
+        <arg name="center_offset" value="0.5"/>
+    </include>
+
+    <!--  Teleop GUI  -->
+    <include file="$(find telecarla_gui)/launch/telecarla_gui.launch">
+        <arg name="sensor_definition_file_path" value="$(find telecarla_gui)/config/multi_cam_gui_config.json"/>
+        <arg name="camera_topics" value="{
+            front: /carla/$(arg role_name)/front/image,
+            front_left: /carla/$(arg role_name)/front_left/image,
+            front_right: /carla/$(arg role_name)/front_right/image,
+            rear: /filter/rear/view_roi_filter/carla/$(arg role_name)/rear/image,
+            rear_left: /filter/rear_left/view_roi_filter/carla/$(arg role_name)/rear_left/image,
+            rear_right: /filter/rear_right/view_roi_filter/carla/$(arg role_name)/rear_right/image
+        }"/>
+        <arg name='role_name' value='$(arg role_name)'/>
+    </include>
+</launch>
