@@ -11,6 +11,6 @@ WS_SRC="${SCRIPT_DIR}"/..
 
 # TELECARLA
 git clone https://github.com/hofbi/telecarla.git "$WS_SRC"/telecarla
-"$WS_SRC"/telecalra/install.sh
+"$WS_SRC"/telecarla/install.sh
 
 echo "Finished setup of View Adpatation"
